@@ -1,0 +1,19 @@
+<a href="/home">🏠</a>
+<br>
+<a href="/products">Todos</a>
+<a href="/products?stock">Solo con stock</a>
+<ul id="productsList">
+    {{#each products}}
+        <li>
+            <a href="/products/{{this._id}}">
+                {{this.title}}
+                <p>$ - {{price}}</p>
+                {{#if this.image}}
+                    <img src="/images/products/{{this.image.[0]}}" alt="{{this.title}}" style="">
+                {{/if}}
+            </a>
+        </li>
+    {{/each}}
+</ul>
+<a href="/cart"><button id="cart">🛒</button></a>
+<a href="/chat"><button id="chat">💬</button></a>

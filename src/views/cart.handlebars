@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <a href="/home">🏠</a>
+    <center>
+        <h1>Carrito de Compras</h1>
+        {{#if cart}}
+            <p>Productos en el carrito:</p>
+            <ul>
+                {{#each cart.products}}
+                    <li>{{this}}</li>
+                {{/each}}
+            </ul>
+        {{else}}
+            <p>El carrito está vacío.</p>
+        {{/if}}
+    </center>
+    <a href="/chat"><button id="chat">💬</button></a>
+</body>
+</html>

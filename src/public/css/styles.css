@@ -1,0 +1,75 @@
+h1{
+    color: red;
+}
+
+img{
+    height: 100px;
+    width: 100px;
+}
+
+#productsList{
+    display: flex;
+}
+
+#productsList li{
+    margin-right: 20px;
+    margin-bottom: 20px;
+    border: 1px solid black;
+    padding: 10px;
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+#homeBody {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100vh;
+}
+
+.area-izquierda, .area-derecha {
+    flex: 1;
+    border: 1px solid #ccc; 
+    position: relative;
+    overflow: hidden;
+}
+
+.area-izquierda{
+    background-color: rgb(255, 205, 205);
+}
+
+.area-derecha{
+    background-color: rgb(255, 172, 172);
+}
+
+.contenido {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    font-size:xx-large;
+}
+
+#chat{
+    position: fixed;
+    font-size: 40px;
+    bottom: 5px;
+    right: 5px;
+    background-color: rgb(125, 125, 125);
+    border-radius: 50px;
+}
+
+#cart{
+    position: fixed;
+    font-size: 40px;
+    bottom: 5px;
+    left: 5px;
+    background-color: rgb(125, 125, 125);
+    border-radius: 50px;
+}

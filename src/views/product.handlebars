@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body> 
+    <a href="/home">🏠</a>
+    <center>
+        <h1>{{title}}</h1>
+        <p>{{description}}</p>
+        {{#if image}}
+            {{#each image}}
+                <img src="/images/products/{{this}}"/>
+            {{/each}}
+        {{/if}}
+        {{#if isStock}}
+            <p>Precio: $ {{price}}</p>
+            <p>Stock: {{stock}}</p>
+        {{else}}
+            <p>No hay stock del producto</p>
+        {{/if}}
+        <form action="/products/updateProduct/{{id}}" method="post" enctype="multipart/form-data">
+            <input type="text" name="title" placeholder="Titulo del producto" value="{{title}}">
+            <textarea name="description" placeholder="Descripción del producto">{{description}}</textarea>
+            <input type="number" name="price" placeholder="Precio del producto" value="{{price}}">
+            <input type="number" name="stock" placeholder="Stock del producto" value="{{stock}}">
+            <input type="file" name="images" multiple/>
+            <input type="submit" value="Actualizar producto" />
+        </form>
+        <button class="eliminar-btn" data-product-id="{{id}}">🗑</button>
+
+        <button class="add-to-cart-btn" data-product-id="{{id}}">Añadir al carrito</button>
+    </center>
+    <a href="/cart"><button id="cart">🛒</button></a>
+    <a href="/chat"><button id="chat">💬</button></a>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const eliminarBtn = document.querySelector('.eliminar-btn');
+        const addToCartBtn = document.querySelector('.add-to-cart-btn');
+
+        eliminarBtn.addEventListener('click', async () => {
+            const productId = eliminarBtn.dataset.productId;
+
+            try {
+                const response = await fetch(`/products/delete/${productId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                });
+
+                if (response.ok) {
+                    window.location.href = '/products';
+
+                    const responseCart = await fetch(`/cart/remove/${productId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                    });
+
+                    if (responseCart.ok) {
+                        console.log('Producto eliminado del carrito');
+                    } else {
+                        console.error('Error al eliminar producto del carrito:', responseCart.statusText);
+                    }
+                } else {
+                    console.error('Error al eliminar el producto:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error al eliminar el producto:', error.message);
+            }
+        });
+
+        addToCartBtn.addEventListener('click', async () => {
+            const productId = addToCartBtn.dataset.productId;
+
+            try {
+                const response = await fetch(`/cart/add/${productId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                });
+
+                if (response.ok) {
+                    console.log('Producto añadido al carrito');
+                } else {
+                    console.error('Error al añadir producto al carrito:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error al añadir producto al carrito:', error.message);
+            }
+        });
+    });
+    </script>
+</body>
+</html>

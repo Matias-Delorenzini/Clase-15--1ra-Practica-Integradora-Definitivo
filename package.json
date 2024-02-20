@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "express-validator": "^7.0.1",
+    "toasty": "^6.0.3"
+  }
+}
